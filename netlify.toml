@@ -1,0 +1,11 @@
+[build]
+publish = "playground/dist"
+command = "pnpm -v && pnpm build:play"
+
+[build.environment]
+NODE_VERSION = "22" # 也可以写你需要的版本
+NPM_FLAGS = "--version"
+
+[build.lifecycle]
+# 关键：先把 corepack 升级到新版本（>=0.31.0 更稳），再 enable + 激活 pnpm
+install = "npm i -g corepack@latest && corepack enable && corepack prepare pnpm@latest --activate && pnpm install --frozen-lockfile"
